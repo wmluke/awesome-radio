@@ -28,6 +28,7 @@ export function getStations(reliability: number = 80) {
             }
         },
         orderBy: [
+            { reliability: "desc" },
             { popularity: "desc" }
         ]
     });
@@ -54,6 +55,7 @@ export function findStationsByTags(tags: string[], reliability: number = 80) {
             }
         },
         orderBy: [
+            { reliability: "desc" },
             { popularity: "desc" }
         ]
     });

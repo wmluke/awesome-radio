@@ -9,10 +9,12 @@ import {
     Outlet,
     Scripts,
     ScrollRestoration,
+    useLoaderData,
     useRouteError
 } from "@remix-run/react";
 import type { ReactNode } from "react";
 import { PageLayout } from "~/components/page-layout";
+import { getTags, TagWithStations } from "~/models/tag.server";
 
 import { getUser } from "~/session.server";
 import stylesheet from "~/tailwind.css";
@@ -22,8 +24,10 @@ export const links: LinksFunction = () => [
     ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : [])
 ];
 
-export const loader = async ({ request }: LoaderArgs) => {
-    return json({ user: await getUser(request) });
+export async function loader({ request }: LoaderArgs) {
+    const tags: TagWithStations[] = await getTags();
+    const user = await getUser(request);
+    return json({ user, tags });
 };
 
 export type DocumentProps = {
@@ -32,7 +36,7 @@ export type DocumentProps = {
 
 }
 
-function Document({ title, children }: DocumentProps) {
+export function Document({ title, children }: DocumentProps) {
     return (
         <html lang="en" className="h-full">
         <head>
@@ -53,9 +57,10 @@ function Document({ title, children }: DocumentProps) {
 }
 
 export default function App() {
+    const { tags, user } = useLoaderData<typeof loader>();
     return (
         <Document>
-            <PageLayout>
+            <PageLayout tags={tags} user={user}>
                 <Outlet />
             </PageLayout>
         </Document>

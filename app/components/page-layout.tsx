@@ -1,12 +1,16 @@
 import { RadioIcon } from "@heroicons/react/24/solid";
 import { NavLink } from "@remix-run/react";
 import type { ReactNode } from "react";
+import type { TagWithStationsClientSide } from "~/models/tag.server";
+import type { UserWithFavoriteStationsClientSide } from "~/models/user.server";
 
 export type PageLayoutProps = {
     children: ReactNode;
+    tags: TagWithStationsClientSide[];
+    user?: UserWithFavoriteStationsClientSide
 }
 
-export function PageLayout({ children }: PageLayoutProps) {
+export function PageLayout({ children, tags, user }: PageLayoutProps) {
     return (
         <div className="drawer drawer-mobile">
             <input id="primary-drawer" type="checkbox" className="drawer-toggle" />
@@ -26,10 +30,6 @@ export function PageLayout({ children }: PageLayoutProps) {
                         <h1 className="text-2xl p-0">Awesome Radio</h1>
                     </div>
                     <div className="flex-none hidden lg:block">
-                        <ul className="menu menu-horizontal">
-                            <li><a>Topnav Item 1</a></li>
-                            <li><a>Topnav Item 2</a></li>
-                        </ul>
                     </div>
                 </div>
                 <div className="py-2 px-6">
@@ -49,12 +49,21 @@ export function PageLayout({ children }: PageLayoutProps) {
                     <li>
                         <NavLink to="/listen/home">Home</NavLink>
                     </li>
-                    <li>
-                        <NavLink to="/listen/channel/music">Music</NavLink>
+                    <li className="menu-title">
+                        <span>Tags</span>
                     </li>
-                    <li>
-                        <NavLink to="/listen/channel/news">News & Talk</NavLink>
-                    </li>
+                    {tags
+                        .filter(tag => tag.stations.length > 0)
+                        .map((tag) => {
+                            return (
+                                <li key={tag.slug}>
+                                    <NavLink to={`/listen/tag/${tag.slug}`} className="capitalize">
+                                        {tag.name}
+                                        <span className="badge badge-outline">{tag.stations?.length ?? 0}</span>
+                                    </NavLink>
+                                </li>
+                            );
+                        })}
                     <li className="menu-title">
                         <span>Manage Content</span>
                     </li>

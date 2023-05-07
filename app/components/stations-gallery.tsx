@@ -1,3 +1,4 @@
+import { PlayIcon } from "@heroicons/react/24/solid";
 import type { Tag } from "@prisma/client";
 import { Link } from "@remix-run/react";
 import type { StationWithTagsClientSide } from "~/models/station.server";
@@ -40,7 +41,10 @@ export function StationsGallery({ stations, tag, channel }: StationsGalleryProps
                             </h2>
                             <p>{station.description}</p>
                             <div className="card-actions justify-end">
-                                <Link to={getStationUrl(station.id)} className="btn btn-primary">Listen Now</Link>
+                                <Link to={getStationUrl(station.id)} className="btn btn-primary gap-2">
+                                    <PlayIcon className="h-6 w-6" />
+                                    Listen Now
+                                </Link>
                             </div>
                         </div>
                     </div>
