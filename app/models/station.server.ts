@@ -1,6 +1,7 @@
 import type { Prisma, PrismaClient, Station, Tag } from "@prisma/client";
 import { prisma } from "~/db.server";
 import { upsertTagOnName } from "~/models/tag.server";
+import type { ConvertDatesToStrings } from "~/utils";
 import { slugify } from "~/utils";
 
 export type StationInput = {
@@ -16,9 +17,27 @@ export type StationInput = {
 
 export type PrismaTxClient = Omit<PrismaClient, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use">;
 
-export function findStationsByTags(tags: string[]) {
+export function getStations(reliability: number = 80) {
+    return prisma.station.findMany({
+        where: { reliability: { gte: reliability } },
+        include: {
+            tags: {
+                include: {
+                    tag: true
+                }
+            }
+        },
+        orderBy: [
+            { popularity: "desc" }
+        ]
+    });
+}
+
+
+export function findStationsByTags(tags: string[], reliability: number = 80) {
     return prisma.station.findMany({
         where: {
+            reliability: { gte: reliability },
             tags: {
                 some: {
                     tag: {
@@ -33,11 +52,15 @@ export function findStationsByTags(tags: string[]) {
                     tag: true
                 }
             }
-        }
+        },
+        orderBy: [
+            { popularity: "desc" }
+        ]
     });
 }
 
-export type StationWithTags = Prisma.PromiseReturnType<typeof getStationById>;
+export type StationWithTags = NonNullable<Prisma.PromiseReturnType<typeof getStationById>>;
+export type StationWithTagsClientSide = ConvertDatesToStrings<StationWithTags>;
 
 export function getStationById(id: string) {
     return prisma.station.findUnique({

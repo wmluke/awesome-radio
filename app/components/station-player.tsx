@@ -1,8 +1,7 @@
-import type { StationWithTags } from "~/models/station.server";
-import type { ConvertDatesToStrings } from "~/utils";
+import type { StationWithTagsClientSide } from "~/models/station.server";
 
 export type StationPlayerProps = {
-    station: ConvertDatesToStrings<NonNullable<StationWithTags>>
+    station: StationWithTagsClientSide
 };
 
 export function StationPlayer({ station }: StationPlayerProps) {

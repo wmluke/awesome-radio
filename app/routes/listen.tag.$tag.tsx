@@ -19,7 +19,7 @@ export async function loader({ params }: LoaderArgs) {
         throw notFound();
     }
 
-    const stations: NonNullable<StationWithTags>[] = await findStationsByTags([tag.name]);
+    const stations: StationWithTags[] = await findStationsByTags([tag.name]);
 
     return json({ tag, stations });
 

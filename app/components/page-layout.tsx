@@ -47,6 +47,9 @@ export function PageLayout({ children }: PageLayoutProps) {
                         <span>Listen</span>
                     </li>
                     <li>
+                        <NavLink to="/listen/home">Home</NavLink>
+                    </li>
+                    <li>
                         <NavLink to="/listen/channel/music">Music</NavLink>
                     </li>
                     <li>
