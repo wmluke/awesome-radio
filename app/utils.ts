@@ -98,3 +98,11 @@ export function slugify(string: string): string {
         .replace(/^-+/, "") // Trim - from start of text
         .replace(/-+$/, ""); // Trim - from end of text
 }
+
+export type ConvertDatesToStrings<T> = T extends Date
+    ? string
+    : T extends Array<infer U>
+        ? ConvertDatesToStrings<U>[]
+        : T extends object
+            ? { [K in keyof T]: ConvertDatesToStrings<T[K]> }
+            : T;

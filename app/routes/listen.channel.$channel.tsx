@@ -1,6 +1,6 @@
 import type { LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { Link, useLoaderData } from "@remix-run/react";
+import { Link, Outlet, useLoaderData } from "@remix-run/react";
 import { Breadcrumbs } from "~/components/breadcrumbs";
 import { StationsGallery } from "~/components/stations-gallery";
 import type { StationWithTags } from "~/models/station.server";
@@ -51,7 +51,8 @@ export default function ListenChannel() {
                 <Link to="/listen">Home</Link>
                 <Link to={`/listen/${channel.slug}`}>{channel.name}</Link>
             </Breadcrumbs>
-            <StationsGallery stations={stations} />
+            <StationsGallery stations={stations} channel={channel} />
+            <Outlet />
         </>
     );
 

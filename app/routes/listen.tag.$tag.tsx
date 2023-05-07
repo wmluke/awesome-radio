@@ -1,6 +1,6 @@
 import type { LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { Link, useLoaderData } from "@remix-run/react";
+import { Link, Outlet, useLoaderData } from "@remix-run/react";
 import { Breadcrumbs } from "~/components/breadcrumbs";
 import { StationsGallery } from "~/components/stations-gallery";
 import type { StationWithTags } from "~/models/station.server";
@@ -34,7 +34,8 @@ export default function ListenTag() {
                 <Link to="/listen">Home</Link>
                 <Link to={`/listen/${tag.slug}`} className="capitalize">{tag.name}</Link>
             </Breadcrumbs>
-            <StationsGallery stations={stations} />
+            <StationsGallery stations={stations} tag={tag} />
+            <Outlet />
         </>
     );
 }
