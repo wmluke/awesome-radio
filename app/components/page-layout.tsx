@@ -47,13 +47,10 @@ export function PageLayout({ children }: PageLayoutProps) {
                         <span>Listen</span>
                     </li>
                     <li>
-                        <NavLink to="/listen/music">Music</NavLink>
+                        <NavLink to="/listen/channel/music">Music</NavLink>
                     </li>
                     <li>
-                        <NavLink to="/listen/sports">Sports</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/listen/news">News & Talk</NavLink>
+                        <NavLink to="/listen/channel/news">News & Talk</NavLink>
                     </li>
                     <li className="menu-title">
                         <span>Manage Content</span>

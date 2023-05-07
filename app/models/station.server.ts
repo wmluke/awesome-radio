@@ -1,4 +1,4 @@
-import type { PrismaClient, Station, Tag } from "@prisma/client";
+import type { Prisma, PrismaClient, Station, Tag } from "@prisma/client";
 import { prisma } from "~/db.server";
 import { upsertTagOnName } from "~/models/tag.server";
 import { slugify } from "~/utils";
@@ -15,6 +15,43 @@ export type StationInput = {
 };
 
 export type PrismaTxClient = Omit<PrismaClient, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use">;
+
+export function findStationsByTags(tags: string[]) {
+    return prisma.station.findMany({
+        where: {
+            tags: {
+                some: {
+                    tag: {
+                        name: { in: tags }
+                    }
+                }
+            }
+        },
+        include: {
+            tags: {
+                include: {
+                    tag: true
+                }
+            }
+        }
+    });
+}
+
+export type StationWithTags = Prisma.PromiseReturnType<typeof getStationById>;
+
+export function getStationById(id: string) {
+    return prisma.station.findUnique({
+        where: { id },
+        include: {
+            tags: {
+                include: {
+                    tag: true
+                }
+            }
+        }
+    });
+
+}
 
 export function upsertStationOnStreamUrl(input: StationInput, p: PrismaTxClient = prisma) {
     return p.station.upsert({
