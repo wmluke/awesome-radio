@@ -23,10 +23,10 @@ export function StationsGallery({ stations, tag, channel }: StationsGalleryProps
     }
 
     return (
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-4">
             {stations.map((station) => {
                 return (
-                    <div key={station.id} className="card card-compact bg-base-100 shadow-xl">
+                    <div key={station.id} className="card card-compact bg-base-100 shadow-xl mb-[70px]">
                         <figure><img src={station.imgUrl} alt="Radio Station" /></figure>
                         <div className="card-body">
                             <h2 className="card-title">
