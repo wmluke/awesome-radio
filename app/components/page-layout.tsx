@@ -1,4 +1,5 @@
 import { RadioIcon } from "@heroicons/react/24/solid";
+import { NavLink } from "@remix-run/react";
 import type { ReactNode } from "react";
 
 export type PageLayoutProps = {
@@ -31,19 +32,35 @@ export function PageLayout({ children }: PageLayoutProps) {
                         </ul>
                     </div>
                 </div>
-
-
-                {children}
+                <div className="py-2 px-6">
+                    {children}
+                </div>
             </div>
             <div className="drawer-side">
                 <label htmlFor="primary-drawer" className="drawer-overlay"></label>
                 <ul className="menu menu-compact flex w-80 flex-col bg-base-200 text-base-content p-0 px-4 pt-4">
-                    <li className="flex flex-row justify-start gap-2 ">
+                    <li className="flex flex-row justify-start gap-2 mb-4">
                         <RadioIcon className="h-8 w-8 p-0" />
                         <h1 className="text-2xl p-0">Awesome Radio</h1>
                     </li>
-                    <li><a>Sidebar Item 1</a></li>
-                    <li><a>Sidebar Item 2</a></li>
+                    <li className="menu-title">
+                        <span>Listen</span>
+                    </li>
+                    <li>
+                        <NavLink to="/listen/music">Music</NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/listen/sports">Sports</NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/listen/news">News & Talk</NavLink>
+                    </li>
+                    <li className="menu-title">
+                        <span>Manage Content</span>
+                    </li>
+                    <li>
+                        <NavLink to="/sources">Sources</NavLink>
+                    </li>
 
                 </ul>
 
