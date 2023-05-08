@@ -35,6 +35,7 @@ export function Document({ title, children }: DocumentProps) {
             {title ? <title>{title}</title> : null}
             <Meta />
             <Links />
+            <script defer data-domain="awesome-radio-1ae3.fly.dev" src="https://plausible.io/js/script.js"></script>
         </head>
         <body className="h-full">
         {children}
