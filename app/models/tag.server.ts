@@ -50,6 +50,12 @@ export function getTags(reliability = 80) {
     });
 }
 
+/**
+ * Performs upsert at the DB level with `ON CONFLICT`.  This is much faster than application level checks, which would require
+ * several queries.
+ * Note: certain criteria must be met to perform at the DB level.
+ * For details, see https://www.prisma.io/docs/reference/api-reference/prisma-client-reference#database-upsert-query-criteria
+ */
 export function upsertTagOnName(tag: string, p: PrismaTxClient = prisma) {
     const slug = slugify(tag);
     return p.tag.upsert({
