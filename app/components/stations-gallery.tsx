@@ -3,21 +3,16 @@ import type { Tag } from "@prisma/client";
 import { Link } from "@remix-run/react";
 import { ListenLink } from "~/components/page-layout";
 import type { StationWithTagsClientSide } from "~/models/station.server";
-import type { Channel } from "~/routes/listen.channel.$channel";
 import type { ConvertDatesToStrings } from "~/utils";
 
 export type StationsGalleryProps = {
     stations: StationWithTagsClientSide[];
     tag?: ConvertDatesToStrings<Tag>;
-    channel?: ConvertDatesToStrings<Channel>;
 };
 
-export function StationsGallery({ stations, tag, channel }: StationsGalleryProps) {
+export function StationsGallery({ stations, tag }: StationsGalleryProps) {
 
     function getStationUrl(id: string): string {
-        if (channel) {
-            return `/listen/channel/${channel.slug}?station=${id}`;
-        }
         if (tag) {
             return `/listen/tag/${tag?.slug}?station=${id}`;
         }
