@@ -64,12 +64,20 @@ Awesome Radio is a personal internet radio station aggregator. See the [demo](ht
 cp .env.example .env
 ```
 
-2. Migrate & Seed the SQLite DB
+2. Install dependencies
+
+```shell
+npm install
+```
+
+3. Migrate & Seed the SQLite DB
 
 ```shell
 npx prisma migrate deploy
 npx prisma db seed
 ```
+
+Note: The db schema, migrations, and seed steps are located in the [prisma](prisma) folder.
 
 ### Running
 
