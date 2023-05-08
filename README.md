@@ -99,10 +99,11 @@ npm run validate
 
 ## Deployment
 
-This project uses Github actions to deploy changes pushed to the `main` branch to fly.io.
+This project uses Github actions to deploy changes pushed to the `main` branch to [fly.io](https://fly.io).
 
 The deployment pipeline is defined in [.github/workflows/deploy.yml](.github/workflows/deploy.yml)
-and [fly.toml](fly.toml). Authentication to fly.io is enabled by
+and [fly.toml](fly.toml). Application packaging and runtime are detailed in [Dockerfile](Dockerfile). Authentication to
+fly.io is enabled by
 a `FLY_API_TOKEN` [repository secret](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository).
 
 The following commands were used to initialize the fly application.
@@ -113,3 +114,5 @@ fly secrets set SESSION_SECRET=$(openssl rand -hex 32) --app awesome-radio-1ae3
 fly volumes create data --size 1 --app awesome-radio-1ae3
 fly scale memory 512 --app awesome-radio-1ae3
 ```
+
+For details on installing the `flyctl` cli, see [here](https://fly.io/docs/hands-on/install-flyctl/).
