@@ -37,7 +37,8 @@ export function StationsGallery({ stations, tag }: StationsGalleryProps) {
                             </h2>
                             <p>{station.description}</p>
                             <div className="card-actions justify-end">
-                                <Link to={getStationUrl(station.id)} className="btn btn-primary gap-2">
+                                <Link to={getStationUrl(station.id)}
+                                      className={`btn btn-primary gap-2 plausible-event-name=play-station plausible-event-station=${station.slug}`}>
                                     <PlayIcon className="h-6 w-6" />
                                     Listen Now
                                 </Link>
