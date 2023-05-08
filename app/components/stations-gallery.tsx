@@ -1,6 +1,7 @@
 import { PlayIcon } from "@heroicons/react/24/solid";
 import type { Tag } from "@prisma/client";
 import { Link } from "@remix-run/react";
+import { ListenLink } from "~/components/page-layout";
 import type { StationWithTagsClientSide } from "~/models/station.server";
 import type { Channel } from "~/routes/listen.channel.$channel";
 import type { ConvertDatesToStrings } from "~/utils";
@@ -15,12 +16,12 @@ export function StationsGallery({ stations, tag, channel }: StationsGalleryProps
 
     function getStationUrl(id: string): string {
         if (channel) {
-            return `/listen/channel/${channel.slug}/${id}`;
+            return `/listen/channel/${channel.slug}?station=${id}`;
         }
         if (tag) {
-            return `/listen/tag/${tag?.slug}/${id}`;
+            return `/listen/tag/${tag?.slug}?station=${id}`;
         }
-        return `/listen/home/${id}`;
+        return `/listen?station=${id}`;
     }
 
     return (
@@ -35,8 +36,8 @@ export function StationsGallery({ stations, tag, channel }: StationsGalleryProps
                             </h2>
                             <h2 className="flex gap-1">
                                 {station.tags.map((t, id) => {
-                                    return <Link key={id} to={`/listen/tag/${t.tag.slug}`}
-                                                 className="badge badge-secondary">{t.tag.name}</Link>;
+                                    return <ListenLink key={id} to={`/listen/tag/${t.tag.slug}`}
+                                                       className="badge badge-secondary">{t.tag.name}</ListenLink>;
                                 })}
                             </h2>
                             <p>{station.description}</p>

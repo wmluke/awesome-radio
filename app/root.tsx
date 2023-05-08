@@ -1,6 +1,5 @@
 import { cssBundleHref } from "@remix-run/css-bundle";
-import type { LinksFunction, LoaderArgs } from "@remix-run/node";
-import { json } from "@remix-run/node";
+import type { LinksFunction } from "@remix-run/node";
 import {
     isRouteErrorResponse,
     Links,
@@ -9,26 +8,15 @@ import {
     Outlet,
     Scripts,
     ScrollRestoration,
-    useLoaderData,
     useRouteError
 } from "@remix-run/react";
 import type { ReactNode } from "react";
-import { PageLayout } from "~/components/page-layout";
-import { getTags, TagWithStations } from "~/models/tag.server";
-
-import { getUser } from "~/session.server";
 import stylesheet from "~/tailwind.css";
 
 export const links: LinksFunction = () => [
     { rel: "stylesheet", href: stylesheet },
     ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : [])
 ];
-
-export async function loader({ request }: LoaderArgs) {
-    const tags: TagWithStations[] = await getTags();
-    const user = await getUser(request);
-    return json({ user, tags });
-};
 
 export type DocumentProps = {
     children: ReactNode;
@@ -57,12 +45,9 @@ export function Document({ title, children }: DocumentProps) {
 }
 
 export default function App() {
-    const { tags, user } = useLoaderData<typeof loader>();
     return (
         <Document>
-            <PageLayout tags={tags} user={user}>
-                <Outlet />
-            </PageLayout>
+            <Outlet />
         </Document>
     );
 }
