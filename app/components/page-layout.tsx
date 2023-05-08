@@ -1,7 +1,6 @@
-import { RadioIcon } from "@heroicons/react/24/solid";
+import { RadioIcon, UserCircleIcon } from "@heroicons/react/24/solid";
 import { Link, NavLink } from "@remix-run/react";
-import type { RemixLinkProps } from "@remix-run/react/dist/components";
-import { RemixNavLinkProps } from "@remix-run/react/dist/components";
+import type { RemixLinkProps, RemixNavLinkProps } from "@remix-run/react/dist/components";
 import type { ReactNode } from "react";
 import * as React from "react";
 import { createContext, useContext } from "react";
@@ -39,6 +38,26 @@ export function ListenNavLink(props: RemixNavLinkProps & React.RefAttributes<HTM
     return <NavLink {...props} to={url}>{props.children}</NavLink>;
 }
 
+export type ManageContentNavProps = {
+    user?: UserWithFavoriteStationsClientSide;
+};
+
+export function ManageContentNav({ user }: ManageContentNavProps) {
+    if (!user) {
+        return <></>;
+    }
+    return (
+        <>
+            <li className="menu-title">
+                <span>Manage Content</span>
+            </li>
+            <li>
+                <NavLink to="/listen/sources">Sources</NavLink>
+            </li>
+        </>
+    );
+}
+
 export function PageLayout({ children, tags, user, station }: PageLayoutProps) {
 
     return (
@@ -64,12 +83,10 @@ export function PageLayout({ children, tags, user, station }: PageLayoutProps) {
                             {user ?
                                 <div className="dropdown dropdown-end">
                                     <label tabIndex={0} className="btn btn-ghost btn-circle avatar placeholder">
-                                        <div className="bg-neutral-focus text-neutral-content rounded-full w-12">
-                                            <span>LB</span>
-                                        </div>
+                                        <UserCircleIcon className="w-8 h-8" />
                                     </label>
                                     <ul tabIndex={0}
-                                        className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+                                        className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-200 rounded-box w-30">
                                         <li>
                                             <Link to="/logout">Logout</Link>
                                         </li>
@@ -112,13 +129,7 @@ export function PageLayout({ children, tags, user, station }: PageLayoutProps) {
                                     </li>
                                 );
                             })}
-                        <li className="menu-title">
-                            <span>Manage Content</span>
-                        </li>
-                        <li>
-                            <NavLink to="/sources">Sources</NavLink>
-                        </li>
-
+                        <ManageContentNav user={user} />
                     </ul>
 
                 </div>

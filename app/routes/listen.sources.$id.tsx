@@ -3,22 +3,27 @@ import type { ActionArgs, LoaderArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
 import { Breadcrumbs } from "~/components/breadcrumbs";
+import { importSource } from "~/lib/importer.server";
 import { getSource, saveSource } from "~/models/source.server";
+import { requireUser } from "~/session.server";
 import { notFound } from "~/utils";
 
 
-export async function action({ request, params }: ActionArgs) {
+export async function action({ request }: ActionArgs) {
+    await requireUser(request);
     const formData = await request.formData();
     const id = formData.get("id") as string;
     const name = formData.get("name") as string;
     const type = formData.get("type") as string;
     const description = formData.get("description") as string;
     const connectionUrl = formData.get("connectionUrl") as string;
-    await saveSource({ id, name, description, type, connectionUrl });
-    return redirect("/sources");
+    const source = await saveSource({ id, name, description, type, connectionUrl });
+    await importSource(source);
+    return redirect("/listen/sources");
 }
 
-export async function loader({ params }: LoaderArgs) {
+export async function loader({ params, request }: LoaderArgs) {
+    await requireUser(request);
     const { id } = params;
     if (!id) {
         throw notFound();
@@ -39,8 +44,8 @@ export default function SourcePage() {
     return (
         <>
             <Breadcrumbs>
-                <Link to="/sources">Sources</Link>
-                <Link to={`/sources/${source.id}`}>{source.name ?? "New Source"}</Link>
+                <Link to="/listen/sources">Sources</Link>
+                <Link to={`/listen/sources/${source.id}`}>{source.name ?? "New Source"}</Link>
             </Breadcrumbs>
             <form method="post">
                 <input type="hidden" name="id" value={source.id} />
@@ -78,7 +83,7 @@ export default function SourcePage() {
                            defaultValue={source.type} />
                 </div>
                 <div className="form-control w-full max-w-lg mt-3">
-                    <button type="submit" className="btn btn-primary">Save</button>
+                    <button type="submit" className="btn btn-primary">Import Stations</button>
                 </div>
 
             </form>

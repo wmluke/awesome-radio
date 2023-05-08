@@ -1,5 +1,6 @@
 import { cssBundleHref } from "@remix-run/css-bundle";
 import type { LinksFunction } from "@remix-run/node";
+import { V2_MetaFunction } from "@remix-run/node";
 import {
     isRouteErrorResponse,
     Links,
@@ -17,6 +18,8 @@ export const links: LinksFunction = () => [
     { rel: "stylesheet", href: stylesheet },
     ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : [])
 ];
+
+export const meta: V2_MetaFunction = () => [{ title: "Awesome Radio" }];
 
 export type DocumentProps = {
     children: ReactNode;

@@ -1,7 +1,3 @@
-import type { V2_MetaFunction } from "@remix-run/node";
-
-export const meta: V2_MetaFunction = () => [{ title: "Awesome Radio" }];
-
 export default function Index() {
     return (
         <div className="hero bg-base-200">
