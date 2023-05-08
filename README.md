@@ -1,6 +1,8 @@
 # Awesome Radio
 
-Awesome Radio is a personal internet radio station aggregator.
+[![🚀 Deploy](https://github.com/wmluke/awesome-radio/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/wmluke/awesome-radio/actions/workflows/deploy.yml)
+
+Awesome Radio is a personal internet radio station aggregator. See the [demo](https://awesome-radio-1ae3.fly.dev).
 
 ![Screenshot](screenshot.png)
 
