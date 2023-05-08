@@ -20,7 +20,10 @@ Awesome Radio is a personal internet radio station aggregator.
 * Support importing from other source types
 * Support manually adding/editing/disabling stations
 * Support [PWA](https://web.dev/progressive-web-apps/) to allow user to save to home screen on mobile devices
+* User profile page
 * Fix: Primary drawer stays open after navigation
+* Fix: Station id in deep-link url...should be station slug
+* Fix: Missing form validation and error handling
 * Tech Debt: Add more unit and E2E tests
 
 ## Development
@@ -31,6 +34,25 @@ Awesome Radio is a personal internet radio station aggregator.
 * [SQLite](https://www.sqlite.org): File based relational database
 * [Prisma](https://www.prisma.io/): Node TS ORM
 * [Vitest](https://vitest.dev): Unit test framework
+* [Cypress](https://www.cypress.io): Browser automation test framework
+* [Tailwind CSS](https://tailwindcss.com): CSS utility framework
+* [DaisyUI](https://daisyui.com/): Component CSS library built with Tailwind
+* [PostCSS](https://postcss.org): CSS pre-processor
+* [Typescript](https://www.typescriptlang.org/): Typed Javascript
+
+### Project Structure Summary
+
+```
+.
+├── .github/              Deployment workflow to fly.io    
+├── app/                  Main app folder...contains components, routes, etc   
+│   ├── models      Primsa DB queries
+│   ├── root.tsx    Root of the Remix UI
+│   └── routes      File based http routing         
+├── cypress/              Cypress E2E tests 
+├── prisma/               DB ORM: db migrations and seed
+└── public/               Public static assets
+```
 
 ### Getting Started
 
