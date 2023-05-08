@@ -77,13 +77,6 @@ export function notFound(message?: string) {
     });
 }
 
-export function createIndex<T>(records: T[], keyFn: (t: T) => string): Map<string, T> {
-    return records.reduce((index, record) => {
-        index.set(keyFn(record), record);
-        return index;
-    }, new Map<string, T>());
-}
-
 export function slugify(string: string): string {
     const a = "àáâäæãåāăąçćčđďèéêëēėęěğǵḧîïíīįìıİłḿñńǹňôöòóœøōõőṕŕřßśšşșťțûüùúūǘůűųẃẍÿýžźż·/_,:;";
     const b = "aaaaaaaaaacccddeeeeeeeegghiiiiiiiilmnnnnoooooooooprrsssssttuuuuuuuuuwxyyzzz------";
