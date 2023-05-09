@@ -77,13 +77,17 @@ npx prisma migrate deploy
 npx prisma db seed
 ```
 
-Note: The db schema, migrations, and seed steps are located in the [prisma](prisma) folder.
+Notes:
+- Seeding adds a testuser account and imports stations from a remote json content source.
+- The db schema, migrations, and seed steps are located in the [prisma](prisma) folder.
 
 ### Running
 
 ```shell
 npm run dev
 ```
+
+Note: If you have not seeded the DB, then you'll need to create an user account to a content source to import stations.
 
 ### Testing
 
