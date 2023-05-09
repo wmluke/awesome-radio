@@ -16,6 +16,12 @@ Awesome Radio is a personal internet radio station aggregator. See the [demo](ht
 * User accounts
 * Add content sources to import stations
 
+## Assumptions & Known Issues
+
+* Any station with a reliability score less than 80 will not be displayed
+* CNN and BBC both fail to play and require authentication. I decided to leave both present in the UI and discuss
+  strategies for authentication.
+
 ## Roadmap
 
 * Support user favorites
