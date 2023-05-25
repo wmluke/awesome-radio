@@ -40,10 +40,14 @@ export function getStations(reliability: number = 80) {
 /**
  * Fetch stations tagged with `tags` and a reliability score GTE to the `reliability` parameter.
  */
-export function findStationsByTags(tags: string[], reliability: number = 80) {
+export function findStationsByTags(tags: string[], q: string | null, reliability: number = 80) {
+    const nameCondition = q ? {
+        contains: q
+    } : {};
     return prisma.station.findMany({
         where: {
             reliability: { gte: reliability },
+            name: nameCondition,
             tags: {
                 some: {
                     tag: {
