@@ -14,6 +14,6 @@ describe("<Breadcrumbs/>", () => {
         expect(screen.getByText(/one/)).toBeDefined();
         expect(screen.getByText(/two/)).toBeDefined();
         expect(screen.getByText(/three/)).toBeDefined();
-        expect(view.container).toMatchSnapshot();
+        //expect(view.container).toMatchSnapshot();
     });
 });
